@@ -21,6 +21,18 @@ We use a yml attribute file to steer the configuration, the following options ar
 
   * `vault_user: vault`
     define trusted user to run the Vault service
+  * `vault_service: vault`
+    The name of the vault service
+  * `vault_service_path: /etc/systemd/system/vault.service`
+    The path on the system where the Vault service configuration file is located
+  * `vault_dir: /opt/vault`
+    The system path for the vault installation
+  * `vault_user: vault`
+    The system user account that the vault service runs as
+  * `vault_tlscert: /opt/vault/ssl/server_cert.pem`
+    Path to TLS certificate file
+  * `vault_tlskey: /opt/vaul/ssl/server_key.pem`
+    Path to TLS key file
 
 ## Usage
 
