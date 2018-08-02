@@ -150,16 +150,6 @@ end
 
 control 'vault-1.9' do
   impact 1.0
-  title 'Ensure Vault audit logging is enabled'
-
-  describe vault_audit_file do
-    its('status') { should eq('enabled') }
-    its('path') { should eq('/tmp/example-file.txt') }
-  end
-end
-
-control 'vault-1.10' do
-  impact 1.0
   title 'Verify that vault.service file permissions are set to 644 or more restrictive'
   desc 'Verify that the \'vault.service\' file permissions are correctly set to \'644\' or more restrictive.'
 
