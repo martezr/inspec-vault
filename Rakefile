@@ -1,9 +1,23 @@
-source 'https://rubygems.org'
+require 'rake/testtask'
+require 'rubocop/rake_task'
 
-gem 'inspec', '2.1.0'
-gem 'rake'
-gem 'rubocop'
+# Rubocop
+desc 'Run Rubocop lint checks'
+task :rubocop do
+  RuboCop::RakeTask.new
+end
 
-group :tools do
-  gem 'github_changelog_generator', '~> 1.12.0'
+# lint the project
+desc 'Run robocop linter'
+task lint: [:rubocop]
+
+# run tests
+task default: [:lint, 'test:check']
+
+namespace :test do
+  # run inspec check to verify that the profile is properly configured
+  task :check do
+    dir = File.join(File.dirname(__FILE__))
+    sh("bundle exec inspec check #{dir}")
+  end
 end
