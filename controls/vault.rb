@@ -19,6 +19,12 @@
 
 title 'Vault Secure Configuration'
 
+vault_executable = attribute(
+  'vault_executable',
+  default: '/usr/local/bin/vault',
+  description: 'The path on the system where the Vault executable is located'
+)
+
 vault_service = attribute(
   'vault_service',
   default: 'vault',
@@ -79,14 +85,15 @@ control 'vault-1.2' do
   desc 'Audit all Vault executable activities'
 
   only_if { os.linux? }
+  rule = '-w ' + vault_executable + ' -p rwxa -k vault'
   describe auditd do
-    its(:lines) { should include('-w /usr/local/bin/vault -p rwxa -k vault') }
+    its(:lines) { should include(rule) }
   end
 end
 
 control 'vault-1.3' do
   impact 1.0
-  title 'Secure Vault configuration files'
+  title 'Verify that vault configuration directory permissions are set to 640 or more restrictive'
 
   describe directory(vault_dir) do
     its('owner') { should eq vault_user }
@@ -101,8 +108,9 @@ control 'vault-1.4' do
   title 'Audit Vault files and directories'
 
   only_if { os.linux? }
+  rule = '-w ' + vault_dir + ' -p rwxa -k vault'
   describe auditd do
-    its(:lines) { should include('-w /opt/vault/ -p rwxa -k vault') }
+    its(:lines) { should include(rule) }
   end
 end
 
@@ -149,16 +157,6 @@ control 'vault-1.8' do
 end
 
 control 'vault-1.9' do
-  impact 1.0
-  title 'Ensure Vault audit logging is enabled'
-
-  describe vault_audit_file do
-    its('status') { should eq('enabled') }
-    its('path') { should eq('/tmp/example-file.txt') }
-  end
-end
-
-control 'vault-1.10' do
   impact 1.0
   title 'Verify that vault.service file permissions are set to 644 or more restrictive'
   desc 'Verify that the \'vault.service\' file permissions are correctly set to \'644\' or more restrictive.'
