@@ -94,6 +94,7 @@ end
 control 'vault-1.3' do
   impact 1.0
   title 'Verify that vault configuration directory permissions are set to 640 or more restrictive'
+  desc 'Verify that vault configuration directory permissions are set to 640 or more restrictive'
 
   describe directory(vault_dir) do
     its('owner') { should eq vault_user }
@@ -106,6 +107,7 @@ end
 control 'vault-1.4' do
   impact 1.0
   title 'Audit Vault files and directories'
+  desc 'Audit the Vault files and directories'
 
   only_if { os.linux? }
   rule = '-w ' + vault_dir + ' -p rwxa -k vault'
@@ -117,6 +119,7 @@ end
 control 'vault-1.5' do
   impact 1.0
   title 'Audit Vault service configuration'
+  desc 'Audit Vault service configuration file'
 
   only_if { os.linux? }
   rule = '-w ' + vault_service_path + ' -p rwxa -k vault'
@@ -128,6 +131,7 @@ end
 control 'vault-1.6' do
   impact 1.0
   title 'Ensure that the vault service is running'
+  desc 'Ensure that the Vault systemd service is running and enabled'
 
   describe service(vault_service) do
     it { should be_installed }
