@@ -18,20 +18,20 @@ class VaultAuditFile < Inspec.resource(1)
 
   def initialize
     cmd = inspec.command('vault audit list -format json -tls-skip-verify')
-    @audit_data = cmd.stdout if cmd.exit_status == 0
+    @audit_data = cmd.stdout if cmd.exit_status?
   end
 
   def status
     if @audit_data == "No audit devices are enabled.\n"
-      return "disabled"
+      return 'disabled'
     elsif
       audit_type_data = JSON.parse(@audit_data)
       if audit_type_data.include? "file"
         print "file type"
       end
-      return "enabled"
+      return 'enabled'
     else
-      return "disabled"
+      return 'disabled'
     end
   end
 
@@ -39,5 +39,4 @@ class VaultAuditFile < Inspec.resource(1)
     json_output = JSON.parse(@audit_data)
     file_path = json_output['file/']['Options']['file_path']
   end
-
 end

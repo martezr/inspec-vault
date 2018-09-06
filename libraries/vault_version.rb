@@ -1,5 +1,5 @@
-require "net/http"
-require "uri"
+require 'net/http'
+require 'uri'
 
 # Custom resource based on the InSpec resource DSL
 class VaultVersion < Inspec.resource(1)
@@ -20,7 +20,7 @@ class VaultVersion < Inspec.resource(1)
 
   def initialize
     cmd = inspec.command('vault version')
-    @version_data = cmd.stdout if cmd.exit_status == 0
+    @version_data = cmd.stdout if cmd.exit_status?
   end
 
   def version
@@ -34,7 +34,7 @@ class VaultVersion < Inspec.resource(1)
 
   def version_creep
     @version_data.split(' ')[1]
-    uri = URI("https://releases.hashicorp.com/vault/")
+    uri = URI('https://releases.hashicorp.com/vault/')
 
     output = Net::HTTP.get(uri)
     print output
