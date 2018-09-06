@@ -30,6 +30,7 @@ class VaultVersion < Inspec.resource(1)
   def sha
     sha_data = @version_data.split(' ')[2]
     sha_output = sha_data[2...-2]
+    return sha_output
   end
 
   def version_creep

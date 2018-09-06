@@ -191,3 +191,21 @@ control 'vault-1.10' do
     it { should_not be_executable }
   end
 end
+
+control 'vault-1.11' do
+  impact 1.0
+  title 'Verify that Vault certificate file permissions are set to 400'
+  desc 'Verify that Vault certificate file permissions are set to 400'
+
+  describe file(vault_tlscert) do
+    it { should exist }
+    it { should be_file }
+    it { should be_readable.by('owner') }
+    it { should_not be_writable.by('owner') }
+    it { should_not be_readable.by('group') }
+    it { should_not be_writable.by('group') }
+    it { should_not be_readable.by('other') }
+    it { should_not be_writable.by('other') }
+    it { should_not be_executable }
+  end
+end
