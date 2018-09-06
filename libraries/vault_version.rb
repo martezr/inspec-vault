@@ -20,7 +20,7 @@ class VaultVersion < Inspec.resource(1)
 
   def initialize
     cmd = inspec.command('vault version')
-    @version_data = cmd.stdout if cmd.exit_status?
+    @version_data = cmd.stdout if cmd.exit_status.zero?
   end
 
   def version
