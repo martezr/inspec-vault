@@ -1,10 +1,10 @@
 name: inspec-vault
-title: HashiCorp Vault InSpec Profile
+title: HashiCorp Vault InSpec Resource Pack
+version: 0.1.0
+summary: Inspec resource pack for HashiCorp Vault
 maintainer: Martez Reed
 copyright: Martez Reed
 copyright_email: martez.reed@greenreedtech.com
 license: Apache-2.0
-summary: Test suite for validating HashiCorp Vault security
-version: 0.0.1
 supports:
   - os-family: unix
