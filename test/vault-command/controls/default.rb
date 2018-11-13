@@ -3,6 +3,8 @@ describe vault_command('status') do
   its('stdout') { should match(/^Sealed\s+false\s*$/) }
   its('stdout') { should match(/^Version\s+0\.11\.\d+\s*$/) }
   its('stdout') { should match(/^Cluster Name\s+vault-cluster-\w+\s*$/) }
+  # response is the stdout parsed as JSON. if stdout could not be parsed as JSON, response is nil
+  its('response') { should be_nil }
   its('stderr') { should cmp '' }
 end
 
@@ -17,5 +19,7 @@ end
 # If VAULT_ADDR and VAULT_TOKEN env vars are not set, they can be specified in vault_command()
 describe vault_command('secrets list -format=json', vault_addr: 'http://localhost:8200', vault_token: 'root-token') do
   its('secret/') { should include('type' => 'kv', 'options' => { 'version' => '2' }) }
+  # response is the stdout parsed as JSON. if stdout could not be parsed as JSON, response is nil
+  its('response') { should_not include('bad-secret-path/')}
   its('stderr') { should cmp '' }
 end
