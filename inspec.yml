@@ -1,7 +1,7 @@
 name: inspec-vault
 title: HashiCorp Vault InSpec Resource Pack
 version: 0.1.0
-summary: Inspec resource pack for HashiCorp Vault
+summary: Inspec libraries and controls for HashiCorp Vault
 maintainer: Martez Reed
 copyright: Martez Reed
 copyright_email: martez.reed@greenreedtech.com
