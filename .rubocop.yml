@@ -28,3 +28,21 @@ Lint/AmbiguousBlockAssociation:
   Enabled: false
 Style/Encoding:
   Enabled: false
+Layout/IndentationConsistency:
+  Exclude:
+    - 'libraries/vault_command.rb'
+Layout/IndentationWidth:
+  Exclude:
+    - 'libraries/vault_command.rb'
+Layout/SpaceAroundOperators:
+  Exclude:
+    - 'libraries/vault_command.rb'
+Lint/HandleExceptions:
+  Exclude:
+    - 'libraries/vault_command.rb'
+Lint/Void:
+  Exclude:
+    - 'libraries/vault_command.rb'
+Style/MissingRespondToMissing:
+  Exclude:
+    - 'libraries/vault_command.rb'
