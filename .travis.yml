@@ -7,11 +7,13 @@ rvm:
 bundler_args: --without integration
 script:
   - bundle exec rake
+  - mkdir -p "${HOME}/bin"
   - curl -Lo vault.zip https://releases.hashicorp.com/vault/0.11.4/vault_0.11.4_linux_amd64.zip
-  - unzip vault.zip -d /usr/bin
+  - unzip vault.zip -d "${HOME}/bin"
+  - export PATH="${PATH}:${HOME}/bin"
   - vault version
   - export VAULT_ADDR=http://localhost:8200 VAULT_TOKEN=root-token
-  - vault server -dev "-dev-root-token-id=${VAULT_TOKEN}"
+  - vault server -dev "-dev-root-token-id=${VAULT_TOKEN}" &
   - vault status
   - cd test/vault-command
   - bundle exec inspec exec .
