@@ -30,8 +30,8 @@ class VaultCommand < Inspec.resource(1)
   attr_reader :command, :safe_command, :json_response, :result
 
   def initialize(cmd, vault_addr: nil, vault_token: nil)
-    vault_addr ||= ENV['VAULT_ADDR'] || raise('No Vault address found')
-    vault_token ||= ENV['VAULT_TOKEN'] || raise('No Vault token found')
+    vault_addr ||= ENV['VAULT_ADDR'] || raise('Error: No Vault address found!')
+    vault_token ||= ENV['VAULT_TOKEN'] || raise('Error: No Vault token found!')
     @safe_command = cmd
     @command = "VAULT_ADDR=#{vault_addr} VAULT_TOKEN=#{vault_token} vault #{cmd}"
 
