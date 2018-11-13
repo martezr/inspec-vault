@@ -68,13 +68,27 @@ cd my-vault-profile
 # specify vault address and token via env vars (or in the controls code shown above)
 export VAULT_ADDR=http://localhost:8200 VAULT_TOKEN=root-token
 
-# run a dev vault server in the backgroun
+# run a dev vault server in the background
 vault server -dev "-dev-root-token-id=${VAULT_TOKEN}" &
 
 # run your inspec profile!
 inspec exec .
 
-# after your tests you can kill the vault server you sent to the backgroun
+#  Vault Command: 'status'
+#     ✔  stdout should match /^Sealed\s+false\s*$/
+#     ✔  stdout should match /^Version\s+0\.11\.\d+\s*$/
+#     ✔  stdout should match /^Cluster Name\s+vault-cluster-\w+\s*$/
+#     ✔  stderr should cmp == ""
+#  Vault Command: 'status -format=json'
+#     ✔  sealed should cmp == false
+#     ✔  version should match /0\.11\.\d+/
+#     ✔  cluster_name should match /vault-cluster-\w+/
+#     ✔  stderr should cmp == ""
+#  Vault Command: 'secrets list -format=json'
+#     ✔  secret/ should include {"type" => "kv", "options" => {"version" => "2"}}
+#     ✔  stderr should cmp == ""
+
+# after your tests you can kill the vault server you sent to the background
 pkill vault
 ```
 
