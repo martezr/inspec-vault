@@ -27,7 +27,7 @@ class VaultCommand < Inspec.resource(1)
       describe vault_command('secrets list -format=json', vault_addr: 'http://localhost:8200', vault_token: 'root-token') do
         its('secret/') { should include('type' => 'kv', 'options' => { 'version' => '2' }) }
         # json is the stdout parsed as JSON. if stdout could not be parsed as JSON, json is nil
-        its('json') { should_not include('bad-secret-path/')}
+        its('json') { should_not include('bad-secret-path/') }
         its('stderr') { should cmp '' }
       end
     end
