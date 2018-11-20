@@ -1,0 +1,5 @@
+name: inspec-vault-command-test
+version: 0.1.0
+depends:
+- name: inspec-vault
+  path: ../..
